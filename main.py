@@ -7,15 +7,18 @@
 import requests
 import sys
 import urllib2
+import httplib
 
 GITHUB_LINGUIST_URL = 'https://raw.githubusercontent.com/github/linguist/master/lib/linguist/languages.yml'
 
 def check_internet():
+    server = "www.google.com"
+    connection = httplib.HTTPConnection(server)
     try:
-        response=urllib2.urlopen('http://www.google.com',timeout=1)
+        connection.request("HEAD", "/")
         return True
-    except urllib2.URLError as err: pass
-    return False
+    except:
+        return False
 
 def main():
     internet_connection = check_internet()
